@@ -46,7 +46,7 @@ function show_cart_goods()
         var new_subtotal = (show_list[k].count - show_list[k].free_count) * show_list[k].price;
         alert(new_subtotal);
         html = html + "<td>" + show_list[i].sort + "</td><td>" + show_list[i].name + "</td><td>" + show_list[i].price + "</td><td>" + show_list[i].unit + "</td><td>" +
-        '<button id = ' + key_id + ' onclick = "add_goods()" >-</button>'+ show_list[i].count + '<button>+</button></td><td>' + new_subtotal + '元'+'(原价' + subtotal + '元)' +'</td>';
+        '<div id="format">' + '<input type="button" id="check1" value="-" onclick="test()"><input style="width: 35px;text-align:center" value='+ show_list[i].count +'><input type="button" id="check3" value="+"></div>' + '</td><td>' + new_subtotal + '元'+'(原价' + subtotal + '元)' + '</td>'
         html = html + '</tr>';
     }
     $('#lists').html(html);
