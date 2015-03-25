@@ -63,14 +63,58 @@ function get_goods()
     }
     $('#list').html(html);
 }
-function add_goods()
-{
+
+function add_goods(){
     var key_id = parseInt(event.srcElement.id,0);
-    var cart_goods = all_items[key_id];
-    var cart_goods_list =  JSON.parse(localStorage.getItem('cart_good_list'))||[];
-        cart_goods_list.push(cart_goods);
-    localStorage.setItem('cart_good_list', JSON.stringify(cart_goods_list));
+    var cart_item = all_items[key_id];
+        cart_item.count = 1;
+    var cart_goods_list = JSON.parse(localStorage.getItem('goods_list'))||[];
+    if(cart_goods_list.length == 0){
+        cart_goods_list.push(cart_item);
+    }
+    else{
+        for(var i = 0; i < cart_goods_list.length; i ++){
+            if(cart_goods_list[i].barcode == cart_item.barcode){
+                cart_goods_list[i].count ++;
+                break;
+            }
+            else if(cart_goods_list[i].barcode != cart_item.barcode && i == cart_goods_list.length-1){
+                cart_goods_list.push(cart_item);
+            }
+        }
+    }
+    localStorage.setItem('goods_list', JSON.stringify(cart_goods_list));
 }
+
+
+//function add_goods()
+//{
+//    var key_id = parseInt(event.srcElement.id,0);
+//    var cart_goods = all_items[key_id];
+//    var cart_goods_list = [];
+//        cart_goods_list.push(cart_goods);
+//    var new_cart_goods_list = JSON.parse(localStorage.getItem('goods_list'))||[];
+//    for(var i = 0;i < all_items.length; i++)
+//    {
+//        var temp = all_items[i];
+//        var count = 0;
+//        for (var j = 0; j < cart_goods_list.length;)
+//        {
+//            if (all_items[i].barcode == cart_goods_list[j].barcode)
+//            {
+//                count += 1;
+//                cart_goods_list.splice(j,1);
+//                j--;
+//            }
+//            j++;
+//        }
+//        if (count !== 0) {
+//            temp.count = count;
+//            new_cart_goods_list.push(temp);
+//        }
+//    }
+//    localStorage.setItem('goods_list', JSON.stringify(new_cart_goods_list));
+//}
 
 
 
