@@ -1,6 +1,10 @@
 /**
  * Created by ding on 15-3-18.
  */
+$(function ()
+{
+    get_goods();
+});
 function loadAllItems() {
         return [
             {
@@ -49,21 +53,25 @@ function loadAllItems() {
     }
     localStorage.setItem('goods', JSON.stringify(loadAllItems()));
     var all_items = JSON.parse(localStorage.getItem('goods'));
-function get_goods()
-{
+function get_goods(){
+    var add_num = 0;
     var html = ' <tr> <th id="sort">分类</th> <th id="name">名称</th> <th id="price">单价（元）</th> <th id="unit">单位</th> <th id="cart"></th> </tr> ';
-    for(var i = 0;i < all_items.length;i++)
-    {
+    for(var i = 0;i < all_items.length;i++){
         var key_id = i.toString();
-        html = html + '<tr>';
+            html = html + '<tr>';
         var item = all_items[i];
-        html = html + "<td>" + item.sort + "</td><td>" + item.name + "</td><td>" + item.price + "</td><td>" + item.unit +"</td><td>" +
-        '<button id = ' + key_id + ' onclick = "add_goods()" >加入购物车</button></td>';
-        html = html + '</tr>';
+            html = html + "<td>" + item.sort + "</td><td>" + item.name + "</td><td>" + item.price + "</td><td>" + item.unit +"</td><td>" +
+        '<button id = ' + key_id + ' onclick = "add_goods()" >' + '加入购物车</button></td>';
+            html = html + '</tr>';
+    }
+    var local_list = JSON.parse(localStorage.getItem('goods_list'));
+    for(var k in local_list){
+        add_num += local_list[k].count;
     }
     $('#list').html(html);
-}
+    $('#cart_num').html(add_num);
 
+}
 function add_goods(){
     var key_id = parseInt(event.srcElement.id,0);
     var cart_item = all_items[key_id];
@@ -84,76 +92,10 @@ function add_goods(){
         }
     }
     localStorage.setItem('goods_list', JSON.stringify(cart_goods_list));
+    var local_list = JSON.parse(localStorage.getItem('goods_list'));
+    var add_num = 0;
+    for(var k in local_list) {
+        add_num += local_list[k].count;
+    }
+    $('#cart_num').html(add_num);
 }
-
-
-//function add_goods()
-//{
-//    var key_id = parseInt(event.srcElement.id,0);
-//    var cart_goods = all_items[key_id];
-//    var cart_goods_list = [];
-//        cart_goods_list.push(cart_goods);
-//    var new_cart_goods_list = JSON.parse(localStorage.getItem('goods_list'))||[];
-//    for(var i = 0;i < all_items.length; i++)
-//    {
-//        var temp = all_items[i];
-//        var count = 0;
-//        for (var j = 0; j < cart_goods_list.length;)
-//        {
-//            if (all_items[i].barcode == cart_goods_list[j].barcode)
-//            {
-//                count += 1;
-//                cart_goods_list.splice(j,1);
-//                j--;
-//            }
-//            j++;
-//        }
-//        if (count !== 0) {
-//            temp.count = count;
-//            new_cart_goods_list.push(temp);
-//        }
-//    }
-//    localStorage.setItem('goods_list', JSON.stringify(new_cart_goods_list));
-//}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//function add_goods()
-//{
-//    $('#list').find('button').on('click',function()
-//    {
-//        var name = $(this).closest('tr').find('id').eq(1).text();
-//        addNum(name);
-//        refreshCart();
-//    })
-//}
-//function addNum(item)
-//{
-//    var lists = JSON.parse(localStorage.lists );
-//    lists[item] = parseInt(lists[item])+1;
-//    localStorage.lists = JSON.stringify(lists);
-//}
-//function refreshCart()
-//{
-//    var lists = JSON.parse(localStorage.lists );
-//    var num = 0;
-//    _(lists).each(function(list)
-//    {
-//        num = list+num;
-//    });
-//    $('#shop_cart').find('#cartNumber').text(num);
-//}
