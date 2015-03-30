@@ -54,23 +54,13 @@ function loadAllItems() {
     localStorage.setItem('goods', JSON.stringify(loadAllItems()));
     var all_items = JSON.parse(localStorage.getItem('goods'));
 function get_goods(){
+        padding_date();
     var add_num = 0;
-    var html = ' <tr> <th id="sort">分类</th> <th id="name">名称</th> <th id="price">单价（元）</th> <th id="unit">单位</th> <th id="cart"></th> </tr> ';
-    for(var i = 0;i < all_items.length;i++){
-        var key_id = i.toString();
-            html = html + '<tr>';
-        var item = all_items[i];
-            html = html + "<td>" + item.sort + "</td><td>" + item.name + "</td><td>" + item.price + "</td><td>" + item.unit +"</td><td>" +
-        '<button id = ' + key_id + ' onclick = "add_goods()" >' + '加入购物车</button></td>';
-            html = html + '</tr>';
-    }
     var local_list = JSON.parse(localStorage.getItem('goods_list'));
     for(var k in local_list){
         add_num += local_list[k].count;
     }
-    $('#list').html(html);
     $('#cart_num').html(add_num);
-
 }
 function add_goods(){
     var key_id = parseInt(event.srcElement.id,0);
@@ -92,6 +82,21 @@ function add_goods(){
         }
     }
     localStorage.setItem('goods_list', JSON.stringify(cart_goods_list));
+    padding_cart_num();
+}
+function padding_date(){
+    var html = ' <tr> <th id="sort">分类</th> <th id="name">名称</th> <th id="price">单价（元）</th> <th id="unit">单位</th> <th id="cart"></th> </tr> ';
+    for(var i = 0;i < all_items.length;i++){
+        var key_id = i.toString();
+        html = html + '<tr>';
+        var item = all_items[i];
+        html = html + "<td>" + item.sort + "</td><td>" + item.name + "</td><td>" + item.price + "</td><td>" + item.unit +"</td><td>" +
+        '<button id = ' + key_id + ' onclick = "add_goods()" >' + '加入购物车</button></td>';
+        html = html + '</tr>';
+    }
+    $('#list').html(html);
+}
+function padding_cart_num(){
     var local_list = JSON.parse(localStorage.getItem('goods_list'));
     var add_num = 0;
     for(var k in local_list) {

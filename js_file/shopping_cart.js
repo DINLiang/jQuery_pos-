@@ -36,7 +36,6 @@ function show_cart_goods()
             var btn_id = k.toString();
             var key_id = k.toString();
                 show_list[k].free_count = 0;
-                //add_free_goods();
             for (var j in promotion_goods[0].barcodes)
             {
                 if (show_list[k].barcode == promotion_goods[0].barcodes[j])
@@ -53,11 +52,11 @@ function show_cart_goods()
             if(new_subtotal === subtotal)
             {
                 html = html + "<td>" + show_list[k].sort + "</td><td>" + show_list[k].name + "</td><td>" + show_list[k].price + "</td><td>" + show_list[k].unit + "</td><td>" +
-                '<div id="format">' + '<input type="button" id='+ btn_id +' value="-" onclick="reduce_good();document.location.reload()">' + '<input style="width: 35px;text-align:center" value=' + show_list[k].count + '><input type="button" id='+ key_id +' value="+" onclick="add_good();document.location.reload()"></div>' + '</td><td>'+ subtotal + '元' + '</td>'
+                '<div id="format">' + '<input type="button" id='+ btn_id +' value="-" onclick="reduce_good();jump_goods()">' + '<input style="width: 35px;text-align:center" value=' + show_list[k].count + '><input type="button" id='+ key_id +' value="+" onclick="add_good();document.location.reload()"></div>' + '</td><td>'+ subtotal + '元' + '</td>'
             }
             else {
                 html = html + "<td>" + show_list[k].sort + "</td><td>" + show_list[k].name + "</td><td>" + show_list[k].price + "</td><td>" + show_list[k].unit + "</td><td>" +
-                '<div id="format">' + '<input type="button" id=' + btn_id + ' value="-" onclick="reduce_good();document.location.reload()">' + '<input style="width: 35px;text-align:center" value=' + show_list[k].count + '><input type="button" id=' + key_id + ' value="+" onclick="add_good();document.location.reload()"></div>' + '</td><td>' + new_subtotal + '元' + '(原价: ' + subtotal + '元)' + '</td>'
+                '<div id="format">' + '<input type="button" id=' + btn_id + ' value="-" onclick="reduce_good();jump_goods()">' + '<input style="width: 35px;text-align:center" value=' + show_list[k].count + '><input type="button" id=' + key_id + ' value="+" onclick="add_good();document.location.reload()"></div>' + '</td><td>' + new_subtotal + '元' + '(原价: ' + subtotal + '元)' + '</td>'
             }
             html = html + '</tr>';
         }
@@ -66,10 +65,6 @@ function show_cart_goods()
     $('#save').text(save_money+"元");
     $('#cart_num').text(cart_num);
     localStorage.setItem('free_list', JSON.stringify(free_lists));
-    if(cart_num == 0)
-    {
-        self.location='../html_file/Goods_list.html';
-    }
 }
 function reduce_good() {
     var btn_id = parseInt(event.srcElement.id,0);
@@ -89,15 +84,10 @@ function add_good()
         cart_goods.count ++;
     localStorage.setItem('goods_list', JSON.stringify(show_list));
 }
-function add_free_goods()
-{
-    var free_lists = [];
-    for (var j in promotion_goods[0].barcodes)
-    {
-        if (show_list[k].barcode == promotion_goods[0].barcodes[j])
-        {
-            show_list[k].free_count = Math.floor(show_list[k].count / 3);
-            free_lists.push(show_list[k]);
-        }
+function jump_goods(){
+    console.log('dfd');
+    var show_lists = JSON.parse(localStorage.getItem('goods_list'));
+    if(show_lists.length == 0){
+           window.location.href='../html_file/Goods_list.html';
     }
 }

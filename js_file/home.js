@@ -5,7 +5,6 @@ $(function()
 {
     home_show();
 })
-
 function home_show()
 {
     var add_num = 0;
