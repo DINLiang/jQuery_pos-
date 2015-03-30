@@ -91,7 +91,7 @@ function padding_date(){
         html = html + '<tr>';
         var item = all_items[i];
         html = html + "<td>" + item.sort + "</td><td>" + item.name + "</td><td>" + item.price + "</td><td>" + item.unit +"</td><td>" +
-        '<button id = ' + key_id + ' onclick = "add_goods()" >' + '加入购物车</button></td>';
+        '<button id = ' + key_id + ' onclick = "add_goods()" style = "background-color:rgb(88, 135, 207);color:white" >' + '加入购物车</button></td>';
         html = html + '</tr>';
     }
     $('#list').html(html);

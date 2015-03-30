@@ -52,11 +52,11 @@ function show_cart_goods()
             if(new_subtotal === subtotal)
             {
                 html = html + "<td>" + show_list[k].sort + "</td><td>" + show_list[k].name + "</td><td>" + show_list[k].price + "</td><td>" + show_list[k].unit + "</td><td>" +
-                '<div id="format">' + '<input type="button" id='+ btn_id +' value="-" onclick="reduce_good();jump_goods()">' + '<input style="width: 35px;text-align:center" value=' + show_list[k].count + '><input type="button" id='+ key_id +' value="+" onclick="add_good();document.location.reload()"></div>' + '</td><td>'+ subtotal + '元' + '</td>'
+                '<div id="format">' + '<input type="button" id='+ btn_id +' value="-" onclick="reduce_good();jump_goods()" style = "background-color: white;height: 30px;width: 30px">' + '<input style="width: 35px;height:24px;text-align:center" value=' + show_list[k].count + '><input type="button" id='+ key_id +' value="+" onclick="add_good();document.location.reload()" style = "background-color: white;height: 30px;width: 30px"></div>' + '</td><td>'+ subtotal + '元' + '</td>'
             }
             else {
                 html = html + "<td>" + show_list[k].sort + "</td><td>" + show_list[k].name + "</td><td>" + show_list[k].price + "</td><td>" + show_list[k].unit + "</td><td>" +
-                '<div id="format">' + '<input type="button" id=' + btn_id + ' value="-" onclick="reduce_good();jump_goods()">' + '<input style="width: 35px;text-align:center" value=' + show_list[k].count + '><input type="button" id=' + key_id + ' value="+" onclick="add_good();document.location.reload()"></div>' + '</td><td>' + new_subtotal + '元' + '(原价: ' + subtotal + '元)' + '</td>'
+                '<div id="format">' + '<input type="button" id=' + btn_id + ' value="-" onclick="reduce_good();jump_goods()" style = "background-color: white;height: 30px;width: 30px">' + '<input style="width: 35px;height:24px;text-align:center" value=' + show_list[k].count + '><input type="button" id=' + key_id + ' value="+" onclick="add_good();document.location.reload()" style = "background-color: white;height: 30px;width: 30px"></div>' + '</td><td>' + new_subtotal + '元' + '(原价: ' + subtotal + '元)' + '</td>'
             }
             html = html + '</tr>';
         }
@@ -88,6 +88,6 @@ function jump_goods(){
     console.log('dfd');
     var show_lists = JSON.parse(localStorage.getItem('goods_list'));
     if(show_lists.length == 0){
-           window.location.href='../html_file/Goods_list.html';
+           location.href='../html_file/Goods_list.html';
     }
 }
