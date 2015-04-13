@@ -23,6 +23,6 @@ function show_free_list() {
     $("#free_lists").html(html);
     $("#time").html(show_date);
 }
-function clear_all() {
+function clear_all(){
     localStorage.clear();
 }
